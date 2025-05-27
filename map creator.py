@@ -15,14 +15,14 @@ def draw_hex_grid_on_image(image_path, rows, cols, hex_size, num_circles, output
     fig, ax = plt.subplots(figsize=fig_size, dpi=dpi)
     ax.imshow(img)
     ax.set_xlim(0, img_width)
-    ax.set_ylim(img_height, 0)  # Flip y-axis
+    ax.set_ylim(img_height, 0)
     ax.axis('off')
     ax.set_aspect('equal')
 
     hex_height = np.sqrt(3) * hex_size
     circle_map = {}
 
-    # Draw hex grid
+    # Draw grid
     for row in range(rows):
         for col in range(cols):
             x = col * 1.5 * hex_size + x_offset_global
@@ -32,7 +32,7 @@ def draw_hex_grid_on_image(image_path, rows, cols, hex_size, num_circles, output
                 hexagon = create_hexagon(x, y, hex_size)
                 ax.plot(*zip(*hexagon), color='black', linewidth=0.5)
 
-    # Add random circles
+    # Add events
     colors = ['red', 'blue', 'green', 'purple', 'orange']
     for _ in range(num_circles):
         col = random.randint(0, cols - 1)
@@ -44,7 +44,7 @@ def draw_hex_grid_on_image(image_path, rows, cols, hex_size, num_circles, output
             ax.add_patch(plt.Circle((x, y), hex_size * circle_size,
                                     color=random.choice(colors), alpha=0.6))
 
-    # Save final image
+    
     plt.show()
     #plt.savefig(output_path, bbox_inches='tight', pad_inches=0)
     plt.close()
@@ -56,7 +56,6 @@ def create_hexagon(x_center, y_center, size):
     return list(zip(x_hex, y_hex))
 
 
-# === Example usage ===
 image_path = '001-map-sc.jpg'
 output_path = 'map_with_hexes.png'
 draw_hex_grid_on_image(
